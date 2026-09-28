@@ -1,0 +1,1438 @@
+{
+  "$defs": {
+    "AgentRun": {
+      "additionalProperties": false,
+      "properties": {
+        "agent": {
+          "title": "Agent",
+          "type": "string"
+        },
+        "provider": {
+          "title": "Provider",
+          "type": "string"
+        },
+        "input_hash": {
+          "title": "Input Hash",
+          "type": "string"
+        },
+        "output_hash": {
+          "title": "Output Hash",
+          "type": "string"
+        },
+        "calls": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Calls",
+          "type": "integer"
+        },
+        "model": {
+          "default": "",
+          "title": "Model",
+          "type": "string"
+        },
+        "effort": {
+          "default": "",
+          "title": "Effort",
+          "type": "string"
+        },
+        "input_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Input Tokens"
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output Tokens"
+        },
+        "total_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Total Tokens"
+        },
+        "duration_ms": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Duration Ms",
+          "type": "integer"
+        },
+        "estimated_cost_usd": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Estimated Cost Usd"
+        },
+        "usage_source": {
+          "default": "unavailable",
+          "enum": [
+            "provider",
+            "codex_quota",
+            "unavailable",
+            "offline"
+          ],
+          "title": "Usage Source",
+          "type": "string"
+        },
+        "telemetry_version": {
+          "default": 1,
+          "title": "Telemetry Version",
+          "type": "integer"
+        },
+        "success": {
+          "default": true,
+          "title": "Success",
+          "type": "boolean"
+        },
+        "search_count": {
+          "default": 0,
+          "title": "Search Count",
+          "type": "integer"
+        },
+        "at": {
+          "title": "At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "agent",
+        "provider",
+        "input_hash",
+        "output_hash"
+      ],
+      "title": "AgentRun",
+      "type": "object"
+    },
+    "Approval": {
+      "additionalProperties": false,
+      "properties": {
+        "gate": {
+          "$ref": "#/$defs/Gate"
+        },
+        "evidence_hash": {
+          "title": "Evidence Hash",
+          "type": "string"
+        },
+        "approved_by": {
+          "minLength": 1,
+          "title": "Approved By",
+          "type": "string"
+        },
+        "note": {
+          "minLength": 1,
+          "title": "Note",
+          "type": "string"
+        },
+        "approved_at": {
+          "title": "Approved At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "gate",
+        "evidence_hash",
+        "approved_by",
+        "note"
+      ],
+      "title": "Approval",
+      "type": "object"
+    },
+    "BOMItem": {
+      "additionalProperties": false,
+      "properties": {
+        "references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "References",
+          "type": "array"
+        },
+        "quantity": {
+          "minimum": 1,
+          "title": "Quantity",
+          "type": "integer"
+        },
+        "part_number": {
+          "title": "Part Number",
+          "type": "string"
+        },
+        "value": {
+          "default": "",
+          "title": "Value",
+          "type": "string"
+        },
+        "footprint": {
+          "default": "UNRESOLVED",
+          "title": "Footprint",
+          "type": "string"
+        },
+        "supplier": {
+          "default": "",
+          "title": "Supplier",
+          "type": "string"
+        },
+        "notes": {
+          "default": "",
+          "title": "Notes",
+          "type": "string"
+        }
+      },
+      "required": [
+        "references",
+        "quantity",
+        "part_number"
+      ],
+      "title": "BOMItem",
+      "type": "object"
+    },
+    "CircuitResult": {
+      "additionalProperties": false,
+      "properties": {
+        "components": {
+          "items": {
+            "$ref": "#/$defs/Component"
+          },
+          "title": "Components",
+          "type": "array"
+        },
+        "bom": {
+          "items": {
+            "$ref": "#/$defs/BOMItem"
+          },
+          "title": "Bom",
+          "type": "array"
+        },
+        "pins": {
+          "items": {
+            "$ref": "#/$defs/Pin"
+          },
+          "title": "Pins",
+          "type": "array"
+        },
+        "nets": {
+          "items": {
+            "$ref": "#/$defs/Net"
+          },
+          "title": "Nets",
+          "type": "array"
+        },
+        "connections": {
+          "items": {
+            "$ref": "#/$defs/Connection"
+          },
+          "title": "Connections",
+          "type": "array"
+        },
+        "constraints": {
+          "items": {
+            "$ref": "#/$defs/DesignConstraint"
+          },
+          "title": "Constraints",
+          "type": "array"
+        },
+        "decoupling": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Decoupling",
+          "type": "array"
+        },
+        "pull_resistors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Pull Resistors",
+          "type": "array"
+        },
+        "unresolved": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unresolved",
+          "type": "array"
+        }
+      },
+      "title": "CircuitResult",
+      "type": "object"
+    },
+    "Component": {
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "title": "Ref",
+          "type": "string"
+        },
+        "part_number": {
+          "title": "Part Number",
+          "type": "string"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "footprint": {
+          "default": "UNRESOLVED",
+          "title": "Footprint",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "status": {
+          "default": "Unresolved",
+          "enum": [
+            "Confirmed",
+            "Inferred",
+            "Unresolved"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "voltage_min": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Voltage Min"
+        },
+        "voltage_max": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Voltage Max"
+        }
+      },
+      "required": [
+        "ref",
+        "part_number",
+        "role",
+        "rationale"
+      ],
+      "title": "Component",
+      "type": "object"
+    },
+    "Connection": {
+      "additionalProperties": false,
+      "properties": {
+        "net": {
+          "title": "Net",
+          "type": "string"
+        },
+        "from_ref": {
+          "title": "From Ref",
+          "type": "string"
+        },
+        "from_pin": {
+          "default": "",
+          "title": "From Pin",
+          "type": "string"
+        },
+        "from_signal": {
+          "title": "From Signal",
+          "type": "string"
+        },
+        "to_ref": {
+          "title": "To Ref",
+          "type": "string"
+        },
+        "to_pin": {
+          "default": "",
+          "title": "To Pin",
+          "type": "string"
+        },
+        "to_signal": {
+          "title": "To Signal",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "status": {
+          "default": "Unresolved",
+          "enum": [
+            "Confirmed",
+            "Inferred",
+            "Unresolved"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "notes": {
+          "default": "",
+          "title": "Notes",
+          "type": "string"
+        }
+      },
+      "required": [
+        "net",
+        "from_ref",
+        "from_signal",
+        "to_ref",
+        "to_signal"
+      ],
+      "title": "Connection",
+      "type": "object"
+    },
+    "DatasheetSource": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "file_id": {
+          "title": "File Id",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "revision": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Revision",
+          "type": "string"
+        },
+        "url": {
+          "default": "",
+          "title": "Url",
+          "type": "string"
+        },
+        "pages": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Pages",
+          "type": "object"
+        },
+        "sha256": {
+          "title": "Sha256",
+          "type": "string"
+        },
+        "component_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Component Refs",
+          "type": "array"
+        },
+        "part_number": {
+          "default": "",
+          "title": "Part Number",
+          "type": "string"
+        }
+      },
+      "required": [
+        "file_id",
+        "title",
+        "revision",
+        "sha256"
+      ],
+      "title": "DatasheetSource",
+      "type": "object"
+    },
+    "DesignConstraint": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "rule": {
+          "title": "Rule",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "status": {
+          "default": "Unresolved",
+          "enum": [
+            "Confirmed",
+            "Inferred",
+            "Unresolved"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "category",
+        "rule"
+      ],
+      "title": "DesignConstraint",
+      "type": "object"
+    },
+    "Fact": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "component_ref": {
+          "minLength": 1,
+          "title": "Component Ref",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "pin",
+            "voltage",
+            "footprint",
+            "decoupling",
+            "interface",
+            "other"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "claim": {
+          "minLength": 1,
+          "title": "Claim",
+          "type": "string"
+        },
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "page": {
+          "minimum": 1,
+          "title": "Page",
+          "type": "integer"
+        },
+        "quote": {
+          "maxLength": 2000,
+          "minLength": 8,
+          "title": "Quote",
+          "type": "string"
+        },
+        "status": {
+          "default": "Inferred",
+          "enum": [
+            "Confirmed",
+            "Inferred",
+            "Unresolved"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "confidence": {
+          "default": 0.5,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "verified_by": {
+          "default": "",
+          "title": "Verified By",
+          "type": "string"
+        },
+        "pin_number": {
+          "default": "",
+          "title": "Pin Number",
+          "type": "string"
+        },
+        "pin_name": {
+          "default": "",
+          "title": "Pin Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "component_ref",
+        "kind",
+        "claim",
+        "source_id",
+        "page",
+        "quote"
+      ],
+      "title": "Fact",
+      "type": "object"
+    },
+    "FileVersion": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "datasheet",
+            "easyeda",
+            "bom",
+            "netlist",
+            "schematic_image",
+            "pcb_image",
+            "drc",
+            "gerber",
+            "other"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "sha256": {
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size": {
+          "minimum": 0,
+          "title": "Size",
+          "type": "integer"
+        },
+        "uploaded_at": {
+          "title": "Uploaded At",
+          "type": "string"
+        },
+        "summary": {
+          "additionalProperties": true,
+          "title": "Summary",
+          "type": "object"
+        },
+        "active": {
+          "default": true,
+          "title": "Active",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "kind",
+        "sha256",
+        "size"
+      ],
+      "title": "FileVersion",
+      "type": "object"
+    },
+    "Gate": {
+      "enum": [
+        "requirements",
+        "components",
+        "connections",
+        "schematic",
+        "pcb",
+        "release"
+      ],
+      "title": "Gate",
+      "type": "string"
+    },
+    "ManualCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "gate": {
+          "$ref": "#/$defs/Gate"
+        },
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "checked": {
+          "title": "Checked",
+          "type": "boolean"
+        },
+        "reviewer": {
+          "minLength": 1,
+          "title": "Reviewer",
+          "type": "string"
+        },
+        "note": {
+          "minLength": 1,
+          "title": "Note",
+          "type": "string"
+        },
+        "at": {
+          "title": "At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "gate",
+        "key",
+        "checked",
+        "reviewer",
+        "note"
+      ],
+      "title": "ManualCheck",
+      "type": "object"
+    },
+    "ManufacturingResult": {
+      "additionalProperties": false,
+      "properties": {
+        "checklist": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Checklist",
+          "type": "array"
+        },
+        "test_steps": {
+          "items": {
+            "$ref": "#/$defs/TestStep"
+          },
+          "title": "Test Steps",
+          "type": "array"
+        },
+        "findings": {
+          "items": {
+            "$ref": "#/$defs/ReviewFinding"
+          },
+          "title": "Findings",
+          "type": "array"
+        }
+      },
+      "title": "ManufacturingResult",
+      "type": "object"
+    },
+    "Net": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "voltage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Voltage"
+        },
+        "interface": {
+          "default": "",
+          "title": "Interface",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Net",
+      "type": "object"
+    },
+    "PartCandidate": {
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "pattern": "^[A-Z][A-Z0-9]*[0-9]+$",
+          "title": "Ref",
+          "type": "string"
+        },
+        "part_number": {
+          "minLength": 1,
+          "title": "Part Number",
+          "type": "string"
+        },
+        "manufacturer": {
+          "title": "Manufacturer",
+          "type": "string"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string"
+        },
+        "package": {
+          "title": "Package",
+          "type": "string"
+        },
+        "product_url": {
+          "title": "Product Url",
+          "type": "string"
+        },
+        "datasheet_url": {
+          "title": "Datasheet Url",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "status": {
+          "default": "pending",
+          "enum": [
+            "pending",
+            "selected",
+            "rejected"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ref",
+        "part_number",
+        "manufacturer",
+        "role",
+        "package",
+        "product_url",
+        "datasheet_url",
+        "rationale"
+      ],
+      "title": "PartCandidate",
+      "type": "object"
+    },
+    "PartsDiscovery": {
+      "additionalProperties": false,
+      "properties": {
+        "parts": {
+          "items": {
+            "$ref": "#/$defs/PartCandidate"
+          },
+          "maxItems": 40,
+          "title": "Parts",
+          "type": "array"
+        },
+        "unresolved": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unresolved",
+          "type": "array"
+        }
+      },
+      "title": "PartsDiscovery",
+      "type": "object"
+    },
+    "Pin": {
+      "additionalProperties": false,
+      "properties": {
+        "component_ref": {
+          "title": "Component Ref",
+          "type": "string"
+        },
+        "number": {
+          "default": "",
+          "title": "Number",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "direction": {
+          "default": "unknown",
+          "enum": [
+            "input",
+            "output",
+            "bidirectional",
+            "power",
+            "passive",
+            "unknown"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "component_ref",
+        "name"
+      ],
+      "title": "Pin",
+      "type": "object"
+    },
+    "Requirement": {
+      "additionalProperties": false,
+      "properties": {
+        "mcu": {
+          "default": "",
+          "title": "Mcu",
+          "type": "string"
+        },
+        "layers": {
+          "anyOf": [
+            {
+              "maximum": 32,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Layers"
+        },
+        "usb": {
+          "default": "",
+          "enum": [
+            "",
+            "power_only",
+            "data",
+            "none"
+          ],
+          "title": "Usb",
+          "type": "string"
+        },
+        "input_voltage": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "maximum": 1000,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Input Voltage"
+        },
+        "rail_voltage": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "maximum": 1000,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rail Voltage"
+        },
+        "max_current_ma": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "maximum": 100000,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Current Ma"
+        },
+        "assembly": {
+          "default": "",
+          "enum": [
+            "",
+            "hand",
+            "smt",
+            "mixed"
+          ],
+          "title": "Assembly",
+          "type": "string"
+        },
+        "manufacturer": {
+          "default": "",
+          "title": "Manufacturer",
+          "type": "string"
+        },
+        "design_rules": {
+          "default": "",
+          "title": "Design Rules",
+          "type": "string"
+        },
+        "board_size": {
+          "default": "",
+          "title": "Board Size",
+          "type": "string"
+        },
+        "sensor": {
+          "default": "",
+          "title": "Sensor",
+          "type": "string"
+        },
+        "display": {
+          "default": "",
+          "title": "Display",
+          "type": "string"
+        },
+        "extras": {
+          "default": "",
+          "title": "Extras",
+          "type": "string"
+        },
+        "clarifications": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Clarifications",
+          "type": "object"
+        }
+      },
+      "title": "Requirement",
+      "type": "object"
+    },
+    "RequirementProposal": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Value"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "basis": {
+          "default": "recommendation",
+          "enum": [
+            "brief",
+            "recommendation"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "quote": {
+          "default": "",
+          "title": "Quote",
+          "type": "string"
+        },
+        "status": {
+          "default": "pending",
+          "enum": [
+            "pending",
+            "accepted",
+            "rejected"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value",
+        "reason"
+      ],
+      "title": "RequirementProposal",
+      "type": "object"
+    },
+    "RequirementsResult": {
+      "additionalProperties": false,
+      "properties": {
+        "values": {
+          "$ref": "#/$defs/Requirement"
+        },
+        "questions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Questions",
+          "type": "array"
+        },
+        "assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "block_diagram": {
+          "default": "",
+          "title": "Block Diagram",
+          "type": "string"
+        },
+        "power_tree": {
+          "default": "",
+          "title": "Power Tree",
+          "type": "string"
+        },
+        "proposals": {
+          "items": {
+            "$ref": "#/$defs/RequirementProposal"
+          },
+          "title": "Proposals",
+          "type": "array"
+        }
+      },
+      "title": "RequirementsResult",
+      "type": "object"
+    },
+    "ResearchResult": {
+      "additionalProperties": false,
+      "properties": {
+        "facts": {
+          "items": {
+            "$ref": "#/$defs/Fact"
+          },
+          "title": "Facts",
+          "type": "array"
+        },
+        "unresolved": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unresolved",
+          "type": "array"
+        }
+      },
+      "title": "ResearchResult",
+      "type": "object"
+    },
+    "ReviewFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "critical",
+            "error",
+            "warning",
+            "question",
+            "info"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "affected": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Affected",
+          "type": "array"
+        },
+        "evidence": {
+          "default": "",
+          "title": "Evidence",
+          "type": "string"
+        },
+        "agent": {
+          "default": "Review Agent",
+          "title": "Agent",
+          "type": "string"
+        }
+      },
+      "required": [
+        "severity",
+        "category",
+        "message"
+      ],
+      "title": "ReviewFinding",
+      "type": "object"
+    },
+    "ReviewResult": {
+      "additionalProperties": false,
+      "properties": {
+        "findings": {
+          "items": {
+            "$ref": "#/$defs/ReviewFinding"
+          },
+          "title": "Findings",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "title": "ReviewResult",
+      "type": "object"
+    },
+    "TestStep": {
+      "additionalProperties": false,
+      "properties": {
+        "order": {
+          "minimum": 1,
+          "title": "Order",
+          "type": "integer"
+        },
+        "action": {
+          "title": "Action",
+          "type": "string"
+        },
+        "test_point": {
+          "title": "Test Point",
+          "type": "string"
+        },
+        "expected": {
+          "title": "Expected",
+          "type": "string"
+        },
+        "stop_condition": {
+          "title": "Stop Condition",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "order",
+        "action",
+        "test_point",
+        "expected",
+        "stop_condition"
+      ],
+      "title": "TestStep",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "brief": {
+      "maxLength": 20000,
+      "minLength": 1,
+      "title": "Brief",
+      "type": "string"
+    },
+    "version": {
+      "default": 0,
+      "title": "Version",
+      "type": "integer"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "updated_at": {
+      "title": "Updated At",
+      "type": "string"
+    },
+    "requirements": {
+      "$ref": "#/$defs/RequirementsResult"
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/DatasheetSource"
+      },
+      "title": "Sources",
+      "type": "array"
+    },
+    "research": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ResearchResult"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "circuit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CircuitResult"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "design_review": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ReviewResult"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "import_review": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ReviewResult"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "manufacturing": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ManufacturingResult"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "files": {
+      "items": {
+        "$ref": "#/$defs/FileVersion"
+      },
+      "title": "Files",
+      "type": "array"
+    },
+    "approvals": {
+      "items": {
+        "$ref": "#/$defs/Approval"
+      },
+      "title": "Approvals",
+      "type": "array"
+    },
+    "manual_checks": {
+      "items": {
+        "$ref": "#/$defs/ManualCheck"
+      },
+      "title": "Manual Checks",
+      "type": "array"
+    },
+    "runs": {
+      "items": {
+        "$ref": "#/$defs/AgentRun"
+      },
+      "title": "Runs",
+      "type": "array"
+    },
+    "change_reason": {
+      "default": "Project created",
+      "title": "Change Reason",
+      "type": "string"
+    },
+    "discovery": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PartsDiscovery"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "pipeline_cache": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Pipeline Cache",
+      "type": "object"
+    },
+    "pipeline_status": {
+      "default": "",
+      "title": "Pipeline Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "brief"
+  ],
+  "title": "Project",
+  "type": "object"
+}

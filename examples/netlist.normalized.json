@@ -1,0 +1,6 @@
+{
+  "nets": [
+    {"name": "VMAIN", "nodes": [{"ref": "J1", "pin": "1"}, {"ref": "U1", "pin": "1"}]},
+    {"name": "GND", "nodes": [{"ref": "J1", "pin": "2"}, {"ref": "U1", "pin": "2"}]}
+  ]
+}

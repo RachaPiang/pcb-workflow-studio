@@ -1,0 +1,6 @@
+{
+  "completed": true,
+  "tool": "Example format only — replace with actual EasyEDA version",
+  "revision": "Example PCB revision — replace with actual design revision",
+  "issues": [{"severity": "error", "message": "EXAMPLE ONLY: replace this entry with actual DRC findings. Use [] only after DRC completed with no issues."}]
+}

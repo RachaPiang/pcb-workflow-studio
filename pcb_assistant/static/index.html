@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102f30">
+  <title>PCB Workflow Studio</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/lab.css">
+  <script src="/static/app.js" defer></script>
+  <script src="/static/guided.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="PCB Workflow Studio Home"><span class="logo">⌘</span><span>PCB WORKFLOW<small>STUDIO / LOCAL EDITION</small></span></a>
+    <button class="new-project" data-action="new">＋ สร้างโปรเจกต์</button>
+    <label class="sidebar-label" for="project-select">WORKSPACE</label>
+    <select id="project-select" aria-label="เลือกโปรเจกต์"><option value="">เลือกโปรเจกต์</option></select>
+    <nav id="nav" aria-label="หน้าของโปรเจกต์"></nav>
+    <div class="sidebar-foot"><span class="live-dot"></span> เก็บโปรเจกต์ในเครื่อง<small>AI เสนอ · คุณตรวจและอนุมัติ</small><button data-action="settings" class="settings-link">⚙ ตั้งค่า AI provider</button></div>
+  </aside>
+  <main>
+    <header class="topbar"><div><span class="eyebrow">ENGINEERING WORKSPACE</span><h1 id="page-title">เริ่มต้นโปรเจกต์ PCB</h1></div><div class="header-actions"><span id="provider-badge" class="badge">Offline</span><button data-action="refresh" class="icon-button" aria-label="โหลดข้อมูลใหม่">↻</button><a id="export-link" class="button primary hidden" href="#">↓ Export project</a></div></header>
+    <div id="busy" class="busy hidden" role="status"><span id="busy-label">กำลังทำงาน…</span><button id="stop-job" data-action="stop-job" class="hidden">หยุดงาน</button></div>
+    <div id="message" class="message hidden" role="status"></div>
+    <section id="content" aria-live="polite"><div class="card">กำลังเปิด workspace…</div></section>
+    <footer>PCB Workflow Studio <span>v0.1 · Evidence before approval</span></footer>
+  </main>
+  <dialog id="dialog"><div id="dialog-body"></div><button class="dialog-close" data-action="close" aria-label="ปิด">×</button></dialog>
+</body>
+</html>
